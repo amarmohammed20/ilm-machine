@@ -31,3 +31,7 @@
 /Users/amarmohammed/Github/ilm-machine/backend/obj/Debug/net9.0/backend.pdb
 /Users/amarmohammed/Github/ilm-machine/backend/obj/Debug/net9.0/backend.genruntimeconfig.cache
 /Users/amarmohammed/Github/ilm-machine/backend/obj/Debug/net9.0/ref/backend.dll
+/Users/amarmohammed/Github/ilm-machine/backend/obj/Debug/net9.0/backend.sourcelink.json
+/Users/amarmohammed/Github/ilm-machine/backend/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/amarmohammed/Github/ilm-machine/backend/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/amarmohammed/Github/ilm-machine/backend/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -37,7 +37,7 @@ public class QuranQuotesController: ControllerBase
 			}
 
 		try {
-			var quranQuotes = Enumerable.Range(1, 5).Select(index =>
+			var QuranQuotes = Enumerable.Range(1, 5).Select(index =>
 					new QuranQuotes
 					(
 							Arabic: ArabicText[Random.Shared.Next(ArabicText.Length)],
@@ -45,12 +45,11 @@ public class QuranQuotesController: ControllerBase
 							Narrater: Narraters[Random.Shared.Next(Narraters.Length)]
 					))
 					.ToArray();
+			return Ok(QuranQuotes);
 
 		} catch (Exception e) {
 			Console.WriteLine(e);
-			return SttusCode(500, new { message = "An error occurred while fetching the Quran quotes.", detials = e.Message });
+			return StatusCode(500, new { message = "An error occurred while fetching the Quran quotes.", detials = e.Message });
 		}
-
-		return Ok(quranQuotes);
-		}
+	}
 }
