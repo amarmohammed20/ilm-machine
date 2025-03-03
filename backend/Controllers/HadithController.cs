@@ -29,7 +29,7 @@ public class HadithController: ControllerBase
 		}
 		
       try {
-		var Hadiths = Enumerable.Range(1, 5).Select(index =>
+		var hadiths = Enumerable.Range(1, 5).Select(index =>
 				new Hadith
 				(
 						Authentic: Random.Shared.Next(0, 2) == 1,
@@ -37,7 +37,7 @@ public class HadithController: ControllerBase
 						Narrater: Narraters[Random.Shared.Next(Narraters.Length)]
 					))
 				.ToArray();
-		return Ok(Hadiths);
+		return Ok(hadiths);
 		} catch (Exception e) {
 				Console.WriteLine(e);
 				return StatusCode(500, new { message = "An error occurred while fetching the hadiths.", detials = e.Message });

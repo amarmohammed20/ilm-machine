@@ -37,7 +37,7 @@ public class QuranQuotesController: ControllerBase
 			}
 
 		try {
-			var QuranQuotes = Enumerable.Range(1, 5).Select(index =>
+			var quranQuotes = Enumerable.Range(1, 5).Select(index =>
 					new QuranQuotes
 					(
 							Arabic: ArabicText[Random.Shared.Next(ArabicText.Length)],
@@ -45,7 +45,7 @@ public class QuranQuotesController: ControllerBase
 							Narrater: Narraters[Random.Shared.Next(Narraters.Length)]
 					))
 					.ToArray();
-			return Ok(QuranQuotes);
+			return Ok(quranQuotes);
 
 		} catch (Exception e) {
 			Console.WriteLine(e);
