@@ -13,7 +13,9 @@ frontend/build
 
 # backend
 backend/bin/
+backend/obj/*
 backend/obj/
+obj/
 backend/*.dll
 backend/*.exe
 
