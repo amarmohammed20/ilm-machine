@@ -11,6 +11,12 @@
 # production
 /build
 
+# backend
+backend/bin/
+backend/obj/
+backend/*.dll
+backend/*.exe
+
 # misc
 .DS_Store
 .env.local
