@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ilm-machine-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P1ssw4rd!
+    ports:
+      - "1433:1433"
+    restart: always
+# docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=P1ssw4rd!' -p 1433:1433 -d --name ilm-machine-db mcr.microsoft.com/mssql/server:2022-latest
