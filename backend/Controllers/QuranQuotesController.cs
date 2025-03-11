@@ -1,52 +1,25 @@
+using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 using IlmMachine.Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
 public class QuranQuotesController : ControllerBase
 {
-	private static readonly string[] ArabicText =
+	private readonly ILMDbContext _context;
+	
+	public QuranQuotesController(ILMDbContext context)
 	{
-		"قُلْ هُوَ اللَّهُ أَحَدٌ",
-		"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
-		"قُلْ أَعُوذُ بِرَبِّ النَّاسِ"
-	};
-
-	private static readonly string[] Narraters =
-	{
-		"Abu Huraira",
-		"Ibn Majah",
-		"Al-Bukhari"
-	};
-
-	private static readonly string[] EnglishText =
-	{
-		"Say, 'He is Allah, [who is] One,'",
-		"Say, 'I seek refuge in the Lord of daybreak'",
-		"Say, 'I seek refuge in the Lord of mankind,'"
-	};
+		_context = context;
+	}
 
 	[HttpGet]
-	public IActionResult GetQuranQuotes()
+	public async Task<IActionResult> GetQuranQuotes()
 	{
-		if (ArabicText == null || ArabicText.Length == 0
-		                       || Narraters == null || Narraters.Length == 0
-		                       || EnglishText == null || EnglishText.Length == 0
-		   )
-		{
-			return BadRequest(new { message = "The Arabic text, the English text, or the narraters are not available." });
-		}
-
 		try
 		{
-			var quranQuotes = Enumerable.Range(1, 5).Select(index =>
-					new QuranQuotes
-					(
-						Arabic: ArabicText[Random.Shared.Next(ArabicText.Length)],
-						English: EnglishText[Random.Shared.Next(EnglishText.Length)],
-						Narrater: Narraters[Random.Shared.Next(Narraters.Length)]
-					))
-				.ToArray();
+			var quranQuotes = await _context.QuranQuotes.ToListAsync();
 			return Ok(quranQuotes);
 		}
 		catch (Exception e)
@@ -54,6 +27,44 @@ public class QuranQuotesController : ControllerBase
 			Console.WriteLine(e);
 			return StatusCode(500,
 				new { message = "An error occurred while fetching the Quran quotes.", detials = e.Message });
+		}
+	}
+
+	[HttpGet("{id}")]
+	public async Task<IActionResult> GetQuranQuote(int id)
+	{
+		try
+		{
+			var quranQuote = await _context.QuranQuotes.FindAsync(id);
+			if (quranQuote == null)
+				return NotFound(new { Message = $"Quran quote with ID {id} not found." });
+
+			return Ok(quranQuote);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			return StatusCode(500, new { Message = "An error has occured while retieving the quran quote", Error = e.Message });
+		}
+	}
+	
+	[HttpPost]
+	public async Task<IActionResult> PostQuranQuote(QuranQuotes quranQuote)
+	{
+		try
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(new { Message = "Invalid Quran quote data." });
+			
+			_context.QuranQuotes.Add(quranQuote);
+			await _context.SaveChangesAsync();
+
+			return CreatedAtAction(nameof(GetQuranQuote), new { id = quranQuote.Id }, quranQuote);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			return StatusCode(500, new { Message = "An error occured while saving the quran quote", Error = e.Message });
 		}
 	}
 }

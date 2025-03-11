@@ -71,6 +71,23 @@ Ensure the frontend is calling the backend API correctly. In your .env.local fil
 REACT_APP_API_BASE_URL=http://localhost:5097
 ```
 
+## **Backend**
+
+## ⚙️ Quick Commands with Makefile
+
+You can run common backend tasks using `make` commands. Make sure you're in the `/backend` folder.
+
+| Task                                   | Command                           |
+| -------------------------------------- | --------------------------------- |
+| Run backend API                        | `make run`                        |
+| Add new migration                      | `make migrate name=MigrationName` |
+| Apply migrations to DB                 | `make update-db`                  |
+| Rebuild project                        | `make build`                      |
+| Clean bin/obj                          | `make clean`                      |
+| Reset database (drop + reapply schema) | `make reset-db`                   |
+
+> 💡 Make sure `dotnet ef` CLI is installed: `dotnet tool install --global dotnet-ef`
+
 ## **Task List**
 
 Below is a task list I need to work through:

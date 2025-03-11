@@ -1,4 +1,13 @@
+using System.ComponentModel.DataAnnotations.Schema;
 namespace IlmMachine.Backend.Models
+
 {
-	public record Hadith(bool Authentic, string Arabic, string Narrater);
+	[Table("Hadiths", Schema = "dirtyData")]
+	public class Hadith
+	{
+		public int Id { get; set; }
+		public bool Authentic { get; set; }
+		public string Arabic { get; set; } = string.Empty;
+		public string Narrater { get; set; } = string.Empty;
+	}
 }
